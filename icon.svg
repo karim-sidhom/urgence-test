@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#1a1006"/>
+      <stop offset="1" stop-color="#020b2e"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- Subtle ring -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#c8860a" stroke-width="14" opacity="0.22"/>
+  <!-- Orange/amber cross (test variant of urgence) -->
+  <path d="M206 90h100v116h116v100H306v116H206V306H90V206h116V90z" fill="#c8860a" stroke="#9e6500" stroke-width="6" stroke-linejoin="round"/>
+  <!-- Subtle inner highlight -->
+  <path d="M214 98h84v116h116v84H298v116H214V298H98V214h116V98z" fill="none" stroke="#ffd700" stroke-width="3" opacity="0.3"/>
+  <!-- Small "T" badge at bottom-right to signal test version -->
+  <circle cx="390" cy="390" r="56" fill="#020b2e" stroke="#c8860a" stroke-width="5"/>
+  <text x="390" y="408" text-anchor="middle" font-family="serif" font-weight="bold" font-size="56" fill="#ffd700">T</text>
+</svg>

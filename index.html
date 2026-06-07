@@ -653,7 +653,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--royal-deep);color:var(--t
 <!-- CALL BAR -->
 <div class="call-bar">
   <div class="call-bar-inner">
-    <a id="mainCallBtn" class="btn-appel primary" href="tel:15" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">🚨 استدعاء الإسعاف</a>
+    <a id="mainCallBtn" class="btn-appel primary" href="#" onclick="callFirst();return false;" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">🚨 استدعاء الإسعاف</a>
     <button class="btn-appel secondary" onclick="reinitialiser()">🔄 إعادة</button>
   </div>
 </div>
@@ -894,6 +894,29 @@ const state={
   callQueue:[],callIndex:0
 };
 
+/* ── GPS ── */
+function getGPS(){
+  const btn=document.querySelector('.gps-btn-small');
+  btn.textContent='...';
+  if(!navigator.geolocation){document.getElementById('gpsRoute').textContent='GPS غير متاح';btn.textContent='تحديد الموقع';return;}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat=pos.coords.latitude.toFixed(5),lon=pos.coords.longitude.toFixed(5);
+    state.gps={lat,lon};
+    document.getElementById('gpsCoords').textContent=`${lat}° N, ${lon}° E`;
+    btn.textContent='✓ تم';btn.style.background='rgba(0,224,122,.2)';btn.style.borderColor='rgba(0,224,122,.5)';btn.style.color='var(--green)';
+    reverseGeocode(lat,lon);
+    updateRecap();
+  },_=>{
+    state.gps={lat:'36.80640',lon:'10.18150'};
+    document.getElementById('gpsCoords').textContent='36.80640° N, 10.18150° E';
+    state.route='شارع الحبيب بورقيبة، تونس العاصمة';
+    document.getElementById('gpsRoute').textContent=state.route;
+    state.countryCode='TN';
+    renderEmergency('TN'); setTimeout(applyCustomNumbers, 100);
+    btn.textContent='✓ تجريبي';btn.style.background='rgba(255,153,0,.15)';btn.style.color='#ff9900';
+    updateRecap();
+  });
+}
 
 async function reverseGeocode(lat,lon){
   try{
